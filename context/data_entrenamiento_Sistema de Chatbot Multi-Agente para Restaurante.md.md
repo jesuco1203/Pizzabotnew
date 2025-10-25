@@ -1,1 +1,0 @@
-<!-- path: data_entrenamiento/Sistema de Chatbot Multi-Agente para Restaurante.md -->
