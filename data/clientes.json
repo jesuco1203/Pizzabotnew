@@ -1,0 +1,61 @@
+[
+  {
+    "id": "u_ana",
+    "name": "Ana",
+    "phone": "999111222"
+  },
+  {
+    "id": "6467",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-24T17:47:52.062955"
+  },
+  {
+    "id": "user_id",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-24T17:49:50.646492"
+  },
+  {
+    "id": "user123",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-24T17:51:10.206516"
+  },
+  {
+    "id": "4973",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-24T17:52:43.506006"
+  },
+  {
+    "id": "6923",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-24T18:25:01.856451"
+  },
+  {
+    "id": "unknown",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-24T19:26:02.038180"
+  },
+  {
+    "id": "123",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-25T01:03:53.856865"
+  },
+  {
+    "id": "789",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-25T01:05:36.207853"
+  },
+  {
+    "id": "5894",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-25T01:11:59.074005"
+  },
+  {
+    "id": "9896",
+    "name": "me llamo Carlos",
+    "registered_at": "2025-10-25T01:17:57.058621"
+  },
+  {
+    "id": "session_user_01",
+    "name": "Carlos"
+  }
+]

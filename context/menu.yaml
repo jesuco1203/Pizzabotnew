@@ -1,0 +1,41 @@
+
+pizzas:
+  - name: Pepperoni
+    sizes:
+      - size: Small
+        price: 10.99
+      - size: Medium
+        price: 12.99
+      - size: Large
+        price: 14.99
+  - name: Margherita
+    sizes:
+      - size: Small
+        price: 9.99
+      - size: Medium
+        price: 11.99
+      - size: Large
+        price: 13.99
+  - name: BBQ Chicken
+    sizes:
+      - size: Medium
+        price: 13.99
+      - size: Large
+        price: 15.99
+
+extras:
+  - name: Extra Cheese
+    price: 2.50
+  - name: Mushrooms
+    price: 1.50
+
+promos:
+  - name: 2x1 Tuesday
+    type: 2x1
+    day: Tuesday
+
+delivery_zones:
+  - zone: A
+    fee: 2.00
+  - zone: B
+    fee: 3.50

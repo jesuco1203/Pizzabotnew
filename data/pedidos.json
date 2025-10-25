@@ -1,0 +1,20 @@
+[
+    {
+        "order_id": 1,
+        "customer_name": "TesterUser",
+        "order_details": {
+            "items": [
+                {
+                    "id": "PIZ003-F",
+                    "name": "Pizza Hawaiana",
+                    "quantity": 1,
+                    "price": 34.0,
+                    "size": "Familiar"
+                }
+            ],
+            "total": 34.0
+        },
+        "delivery_address": "calle luna 45, ciudad del sol",
+        "timestamp": "2025-10-24T13:54:59.343298"
+    }
+]

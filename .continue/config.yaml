@@ -1,0 +1,16 @@
+name: Pizzabotnew
+version: "1"
+
+models:
+  - name: glm46
+    provider: openrouter
+    model: z-ai/glm-4.6
+    apiKey: "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"
+
+agents:
+  - name: "Spec Executor (GLM 4.6)"
+    model: glm46
+    systemMessage: >
+      Eres un asistente técnico guiado por OpenSpec. Lee /openspec/changes y cumple los CA.
+
+defaultAgent: "Spec Executor (GLM 4.6)"

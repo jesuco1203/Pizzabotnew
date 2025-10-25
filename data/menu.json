@@ -1,0 +1,120 @@
+{
+  "PIZ001": {
+    "Nombre_Base": "Pizza de Jamón",
+    "Alias": "pizza jamon, piza de jamon",
+    "Descripcion_Plato": "Una de las más sencillas y preferidas de todos.",
+    "Categoria": "Pizzas",
+    "Ingredientes": ["Jamón", "Queso Mozzarella"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Grande": { "ID_SKU": "PIZ001-G", "Precio": 24.0 },
+      "Familiar": { "ID_SKU": "PIZ001-F", "Precio": 32.0 }
+    }
+  },
+  "PIZ002": {
+    "Nombre_Base": "Pizza Americana",
+    "Alias": "americana, piza americana",
+    "Descripcion_Plato": "Nuestra combinación del mejor jamón, queso mozzarella, aceitunas y pimentón.",
+    "Categoria": "Pizzas",
+    "Ingredientes": ["Jamón", "Queso Mozzarella", "Aceitunas", "Pimentón"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Grande": { "ID_SKU": "PIZ002-G", "Precio": 25.0 },
+      "Familiar": { "ID_SKU": "PIZ002-F", "Precio": 33.0 }
+    }
+  },
+  "PIZ003": {
+    "Nombre_Base": "Pizza Hawaiana",
+    "Alias": "hawaiana, pizza con piña",
+    "Descripcion_Plato": "Pizza paradisíaca hecha a mano con salsa de tomate natural, queso 100% mozzarella, el mejor Jamón y jugosa piña golden en almíbar.",
+    "Categoria": "Pizzas",
+    "Ingredientes": ["Salsa de Tomate", "Queso Mozzarella", "Jamón", "Piña Golden"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Grande": { "ID_SKU": "PIZ003-G", "Precio": 26.0 },
+      "Familiar": { "ID_SKU": "PIZ003-F", "Precio": 34.0 }
+    }
+  },
+  "PIZ004": {
+    "Nombre_Base": "Pizza Vegetariana",
+    "Alias": "vegetariana, veggie, pizza de vegetales",
+    "Descripcion_Plato": "Deliciosa pizza con tus vegetales favoritos: pimentones, cebolla roja, champiñones, aceitunas y tomates.",
+    "Categoria": "Pizzas",
+    "Ingredientes": ["Pimentones", "Cebolla Roja", "Champiñones", "Aceitunas", "Tomates", "Queso Mozzarella"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Grande": { "ID_SKU": "PIZ004-G", "Precio": 25.0 },
+      "Familiar": { "ID_SKU": "PIZ004-F", "Precio": 33.0 }
+    }
+  },
+  "PIZ005": {
+    "Nombre_Base": "Pizza de Pepperoni",
+    "Alias": "pepperoni, peperoni",
+    "Descripcion_Plato": "Pizza clásica de Pepperoni, con irresistible queso 100% mozzarella.",
+    "Categoria": "Pizzas",
+    "Ingredientes": ["Pepperoni", "Queso Mozzarella"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Grande": { "ID_SKU": "PIZ005-G", "Precio": 26.0 },
+      "Familiar": { "ID_SKU": "PIZ005-F", "Precio": 34.0 }
+    }
+  },
+  "LAS001": {
+    "Nombre_Base": "Lasagna Bolognesa",
+    "Alias": "lasaña boloñesa, lasana bolognesa, lasaña de carne",
+    "Descripcion_Plato": "Deliciosa combinación de salsa boloñesa (500GR.) elaborada con puro tomate fresco, carne de res y salsa bechamel a base de leche y queso 100% mozzarella.",
+    "Categoria": "Lasagnas (lasaña)",
+    "Ingredientes": ["Salsa Bolognesa", "Carne de Res", "Salsa Bechamel", "Queso Mozzarella"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Personal": { "ID_SKU": "LAS001", "Precio": 21.0 }
+    }
+  },
+  "LAS002": {
+    "Nombre_Base": "Lasagna Alfredo",
+    "Alias": "lasaña alfredo, lasana alfredo, lasaña de jamon",
+    "Descripcion_Plato": "Deliciosa salsa bechamel a base de leche, el mejor jamón y queso 100% mozzarella (500GR.).",
+    "Categoria": "Lasagnas (lasaña)",
+    "Ingredientes": ["Salsa Bechamel", "Jamón", "Queso Mozzarella"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Personal": { "ID_SKU": "LAS002", "Precio": 21.0 }
+    }
+  },
+  "BEB001": {
+    "Nombre_Base": "Gaseosa Pepsi",
+    "Alias": "pepsi, gaseosa",
+    "Descripcion_Plato": "Bebida gaseosa refrescante.",
+    "Categoria": "Bebidas",
+    "Ingredientes": [],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "500 ML": { "ID_SKU": "BEB001", "Precio": 2.5, "Alias": "medio litro, media litro, pequeña" },
+      "1.5 LT": { "ID_SKU": "BEB002", "Precio": 5.0, "Alias": "litro y medio, grande" }
+    }
+  },
+  "BEB002": {
+    "Nombre_Base": "Agua Mineral",
+    "Alias": "agua, agua sin gas, agua con gas",
+    "Descripcion_Plato": "Agua mineral natural.",
+    "Categoria": "Bebidas",
+    "Ingredientes": [],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "500 ML": { "ID_SKU": "BEB003", "Precio": 2.0, "Alias": "botella pequeña" },
+      "1 LT": { "ID_SKU": "BEB004", "Precio": 3.5, "Alias": "botella grande" }
+    }
+  },
+  "PIZ006": {
+    "Nombre_Base": "Pizza Diabla",
+    "Alias": "diabla, diabolica, piza diabla, piza diabolica, picante",
+    "Descripcion_Plato": "Nuestra pizza más picante, con pepperoni, jalapeños y un toque de chile.",
+    "Categoria": "Pizzas",
+    "Ingredientes": ["Pepperoni", "Jalapeños", "Chile", "Queso Mozzarella"],
+    "Disponible": "Sí",
+    "Tamaños": {
+      "Grande": { "ID_SKU": "PIZ006-G", "Precio": 28.0 },
+      "Familiar": { "ID_SKU": "PIZ006-F", "Precio": 36.0 }
+    }
+  }
+}

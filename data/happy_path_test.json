@@ -1,0 +1,14 @@
+{
+    "items": [
+        {
+            "name": "pepperoni",
+            "size": "large",
+            "qty": 1,
+            "extras": []
+        }
+    ],
+    "address": null,
+    "zone": "A",
+    "stage": "placing_order",
+    "total": 16.990000000000002
+}
