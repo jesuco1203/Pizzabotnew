@@ -63,10 +63,6 @@ class CoordinatorAgent(BaseAgent):
         if current_phase == ConversationPhase.SALUDO:
             # Si estamos en la fase de saludo y esperando nombre, cualquier entrada es para UserManagementAgent
             if ctx.session.state.get("awaiting_user_name"):
-                name = extract_person_name(message)
-                if name:
-                    ctx.session.state["user_name"] = name
-                    return "name_captured"
                 return "customer_registration"
             # Si no, es una conversación general o un intento de iniciar pedido/menú
             if any(keyword in message_lower for keyword in ["hola", "saludos", "hi", "buenas"]):
@@ -153,6 +149,14 @@ class CoordinatorAgent(BaseAgent):
                 if part.text:
                     user_message_text += part.text
         print(f"DEBUG: CoordinatorAgent: Mensaje de usuario: {user_message_text}")
+
+        # Persistir el último mensaje del usuario en el estado
+        delta_latest = {"latest_user_text": (user_message_text or "").strip()}
+        await ctx.session_service.append_event(
+            ctx.session,
+            Event(author=self.name, actions=EventActions(state_delta=delta_latest))
+        )
+        ctx.session.state.update(delta_latest)
 
         while True: # Loop to re-evaluate phase in the same turn
             current_phase = ctx.session.state.get("conversation_phase", ConversationPhase.SALUDO)
@@ -268,12 +272,18 @@ class CoordinatorAgent(BaseAgent):
                         )
                         continue
                     else:
+                        from tools.size_validation_tool import valid_sizes
+                        options = valid_sizes() or ["grande","familiar"]
                         delta = {
                             "pending_item_id": item_id,
                             "pending_item_name": info.get("Nombre_Base"),
                             "pending_size": True,
                             "pending_size_options": options,
                         }
+                        await ctx.session_service.append_event(
+                            ctx.session,
+                            Event(author=self.name, actions=EventActions(state_delta=delta))
+                        )
                         ctx.session.state.update(delta)
                         yield Event(
                             invocation_id=ctx.invocation_id,

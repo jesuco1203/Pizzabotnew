@@ -30,10 +30,11 @@ class UserManagementAgent(Agent):
             La pregunta debe contener literalmente la frase "¿Cómo te llamas?" y NO debes incluir un nombre en tu respuesta.
             Está PROHIBIDO inventar, deducir o repetir un nombre que aparezca en el mensaje del usuario mientras `user_identified` sea False.
             Si el usuario no proporciona un nombre válido o evade la pregunta, insiste educadamente. Cada turno sin nombre debe terminar en "¿Cómo te llamas?".
+            Si el usuario responde con su nombre, por ejemplo 'me llamo Carlos', DEBES llamar a la herramienta `extract_and_register_name` con el `user_message` completo.
             Una vez que tengas el nombre, regístralo con la herramienta `extract_and_register_name`.
             Si `extract_and_register_name` devuelve `clarification_needed`, significa que no se pudo extraer un nombre válido y debes volver a pedirlo.
             Al finalizar, asegúrate de que `session.state['user_identified']` sea `True` y `session.state['user_name']` contenga el nombre del usuario.
-            """,
+            """,,
             tools=[check_user_in_db, extract_and_register_name],
             **kwargs
         )
@@ -55,11 +56,19 @@ class UserManagementAgent(Agent):
         # 2. Si el usuario no ha sido verificado en la DB o no se ha obtenido su nombre
         if not session_state.get("user_checked_db") or session_state.get("awaiting_user_name"):
             print("DEBUG: UserManagementAgent: Delegando a LLM para identificación/registro.")
+            tool_registry = {tool.__name__: tool for tool in self.tools}
             async for event in super()._run_async_impl(ctx):
                 if event.content and getattr(event.content, "parts", None):
                     if event.actions and getattr(event.actions, "state_delta", None):
                         ctx.session.state.update(event.actions.state_delta)
-                    reply_text = handle_model_parts(event.content.parts)
+                    
+                    reply_text, new_state = await handle_model_parts(
+                        parts=event.content.parts,
+                        session_state=ctx.session.state,
+                        tool_registry=tool_registry
+                    )
+                    ctx.session.state.update(new_state)
+
                     user_name = _normalize_name(ctx.session.state.get("user_name"))
                     if user_name:
                         ctx.session.state["user_name"] = user_name

@@ -1,7 +1,8 @@
 from google.adk.agents import Agent
 from google.adk.agents.invocation_context import InvocationContext
+from google.adk.tools import ToolContext
 from tools.order_tools import process_item_request, get_current_order
-from tools.size_validation_tool import size_validation_tool as SizeValidationTool
+from tools.size_validation_tool import size_validation_tool
 from google.adk.events import Event, EventActions
 from google.genai.types import Content, Part
 
@@ -15,7 +16,7 @@ class OrderAgent(Agent):
             description="Agente especializado en gestionar el pedido actual del cliente.",
             # Aislamos al agente del historial para que no se confunda con saludos pasados.
             include_contents='none',
-            tools=[process_item_request, get_current_order, SizeValidationTool],
+            tools=[process_item_request, get_current_order, size_validation_tool],
             instruction="""
             Eres un agente especializado en procesar pedidos de restaurante.
             Tu función es ayudar a los clientes a agregar elementos a su pedido, modificar cantidades,
@@ -56,15 +57,65 @@ class OrderAgent(Agent):
 
     async def _run_async_impl(self, ctx: InvocationContext):
         print(f"DEBUG: OrderAgent: Iniciando _run_async_impl. Estado: {ctx.session.state}")
+        session_state = ctx.session.state
+
+        if session_state.get("pending_size"):
+            # Fuente única y confiable del texto del usuario
+            user_message = (ctx.session.state.get("latest_user_text") or "").strip()
+
+            # Fallback defensivo por si en algún flujo faltara (no debería, con el cambio del Coordinator)
+            if not user_message:
+                # intenta extraer desde el propio invocation si existe
+                try:
+                    parts = getattr(getattr(ctx, "invocation_id", None), "content", None)
+                except Exception:
+                    parts = None
+                # Si aun así no hay texto, corta amablemente
+                if not user_message:
+                    yield Event(invocation_id=ctx.invocation_id, author=self.name,
+                                content=Content(parts=[Part(text="¿Podrías repetir tu mensaje?")]))
+                    return
+            # Create a ToolContext object to pass to the size_validation_tool
+            tool_context = ToolContext(session=ctx.session)
+            validation_result = await size_validation_tool(tool_context, user_message)
+
+            if validation_result.get("is_valid"):
+                item_identifier = session_state.get("item_to_clarify", {}).get("Nombre_Base")
+                if item_identifier:
+                    # Create a ToolContext object to pass to the process_item_request tool
+                    tool_context = ToolContext(session=ctx.session)
+                    result = await process_item_request(
+                        tool_context=tool_context,
+                        item_identifier=item_identifier,
+                        size=validation_result.get("normalized_size")
+                    )
+                    # The result of process_item_request is a dictionary with the new state
+                    ctx.session.state.update(result)
+                    # Yield an event with the bot's response
+                    yield Event(
+                        invocation_id=ctx.invocation_id,
+                        author=self.name,
+                        content=Content(parts=[Part(text=result.get("text", ""))]),
+                    )
+                    return
+
         # La lógica de manejo de item_to_clarify y el procesamiento de mensajes
         # se delega a la instrucción del LLM y a las herramientas.
         # El LLM, guiado por la instrucción, decidirá cuándo llamar a process_item_request
         # y cómo manejar sus respuestas (incluyendo clarification_needed).
+        tool_registry = {tool.__name__: tool for tool in self.tools}
         async for event in super()._run_async_impl(ctx):
             if event.content and getattr(event.content, "parts", None):
                 if event.actions and getattr(event.actions, "state_delta", None):
                     ctx.session.state.update(event.actions.state_delta)
-                reply_text = handle_model_parts(event.content.parts)
+                
+                reply_text, new_state = await handle_model_parts(
+                    parts=event.content.parts,
+                    session_state=ctx.session.state,
+                    tool_registry=tool_registry
+                )
+                ctx.session.state.update(new_state)
+
                 if reply_text:
                     event.content = Content(parts=[Part(text=reply_text)])
             yield event
